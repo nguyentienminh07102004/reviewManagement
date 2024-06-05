@@ -1,0 +1,11 @@
+mixin changeMultiStatus(path, options)
+  form(action=path, method="post" form-change-multi)
+    div(class="d-flex align-items-start")
+      div(class="form-group")
+        select(name="type" class='form-control')
+          each opi in options
+            option(value=opi.status) #{opi.name}
+      div(class='form-group')
+        input(type='text' name='ids' value='' class='form-control d-none')
+      button(type="submit" class="btn btn-primary")  Apply
+

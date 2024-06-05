@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main 
+  +alert-error(5000)
+
+  h1(class='mb-4') Add product
+
+  form(action=`${PATH_ADMIN}/products/create`, method="post" id='form-create-product' enctype="multipart/form-data")
+
+    div(class='form-group')
+      label(for='title') Title 
+      input(id='title' type='text' required class='form-control' name='title') 
+
+    div(class='form-group')
+      label(for='desc') Description 
+      textarea(id='desc' class='form-control' name='description' rows='5')
+
+    div(class='form-group')
+      label(for='price') Price
+      input(type="text" class='form-control' id='price' name='price')
+    
+    div(class='form-group')
+      label(for='discountPercentage') Discount Percentage
+      input(type='text' id='discountPercentage' name='discountPercentage' class='form-control')
+    
+    div(class='form-group')
+      label(for='stock') Stock 
+      input(type='number' id='stock' name='stock' class='form-control')
+    
+    div(class='form-group' image-input-group)
+      label(for='thumbnail') Thumbnail 
+      input(type='file'  id='thumnail' name='thumbnail' class='form-control-file' accept='image/*' image-input)
+      img(src="#" alt="" image-preview)
+      button(clear-image-preview class="button-clear-none") x
+    
+    div(class='form-group')  
+      label(for='position') Position
+      input(type='number' id='position' name='position' class='form-control' placeholder='Auto increment')
+    
+    div(class='form-group form-check form-check-inline')
+      input(type='radio' value='active' name='status' class='form-check-input' id='statusActive' checked)
+      label(for='statusActive' class='form-check-label') Active
+
+    div(class='form-group form-check form-check-inline')
+      input(type='radio' value='inactive' name='status' class='form-check-input' id='statusInactive')
+      label(for='statusInactive' class='form-check-label') Inactive 
+    
+    div(class='form-group')
+      input(type='submit' class='btn btn-primary' value='CREATE')
+
+  script(src="/admin/JS/products.js") 

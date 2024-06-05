@@ -1,0 +1,110 @@
+extends ../../layouts/default.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/changeMultiStatus.pug
+include ../../mixins/alert.pug
+
+block main 
+  h1 Products List
+  +alert-success(5000)
+  +alert-error(5000)
+  div(class="card mb-3")
+    div(class="card-header")
+      div(class='row')
+        div(class='col-10') Filter and Search
+        div(class='col-2 btn btn-outline-success')
+          a(href="/admin/products/garbage" class='garbage row align-items-center' style='text-decoration:none')
+            span(class='col-9') Garbage of products
+            i(class="fa-solid fa-trash col-3")
+    div(class="card-body")
+      div(class="row")
+        div(class="col-6")
+          +filterStatus(buttons)
+        div(class="col-6")
+          +search(keyword)
+
+  div(class="card mb-3")
+    div(class="card-header") Products
+    div(class="card-body")
+      div(class="row")
+        div(class='col-8')
+          -
+            let opitions = [
+              {
+                name: "Active",
+                status: 'active'
+              },
+              {
+                name: "Inactive",
+                status: 'inactive'
+              },
+              {
+                name: "Delete All",
+                status: 'delete-multi'
+              },
+              {
+                name: "Change position",
+                status: 'change-position'
+              }
+            ];
+          +changeMultiStatus(`${PATH_ADMIN}/products/change-multi-status?_method=PATCH`, opitions)
+        div(class='col-4')
+          a(href=`${PATH_ADMIN}/products/create` class='btn btn-outline-success') + Add Product
+      table(class="table table-hover table-sm" check-box-multi)
+        thead 
+          tr 
+            th 
+              input(type="checkbox" name="checkall")
+            th Number Order 
+            th Image
+            th Title
+            th Price 
+            th Position
+            th Status 
+            th Action 
+        tbody 
+          each product, index in products
+            tr 
+              td 
+                input(type="checkbox" name="id" value=product.id)
+              td #{index + 1}
+              td 
+                img(
+                  src=`${product.thumbnail}`
+                  alt=`${product.title}`
+                  width="100px"
+                  height="auto"
+                )
+              td #{product.title}
+              td #{product.price}$
+              td
+                input(type='number' min='0' name='position' style="width: 60px" value=`${product.position}`)
+              td
+                if(product.status === "active")
+                  a(
+                    href="#" 
+                    class="badge badge-success"
+                    button-data-status="active"
+                    button-data-id=product.id
+                    button-change-status
+                    ) Active
+                else 
+                  a(
+                    href="#" 
+                    class="badge badge-danger"
+                    button-data-status="inactive"
+                    button-data-id=product.id
+                    button-change-status
+                    ) Inactive
+              td 
+                a(class="btn btn-warning btn-sm" href=`${PATH_ADMIN}/products/edit/${product.id}`) Edit
+                a(class="btn btn-sm btn-primary ml-1" href=`${PATH_ADMIN}/products/detail/${product.id}`) Detail
+                button(class="btn btn-danger btn-sm ml-1" button-delete data-id=product.id) Delete
+
+    +pagination(pagination)
+
+    form(action="" method="post" data-path=`${PATH_ADMIN}/products/change-status` form-change-status)
+    form(action="" method="POST" data-path=`${PATH_ADMIN}/products/delete` form-delete-product)
+
+  script(src="/admin/JS/products.js") 

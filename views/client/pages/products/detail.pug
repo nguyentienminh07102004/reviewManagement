@@ -1,0 +1,15 @@
+extends ../../layouts/default.pug
+block main 
+  div(class="container my-3")
+    div(class="row")
+      div(class="col-12")
+        h1(class="mb-4") Title: #{product.title ? product.title : "Not title"}
+        div(class="mb-4") Price: <b>#{product.price}$</b>
+        div(class="mb-4") Discount Percentage: <b>#{product.discountPercentage}%</b>
+        div(class="mb-4") Stock: <b>#{product.stock ? product.stock : "Don't have infomation"}</b>
+        div(class="mb-4")
+          img(src=`${product.thumbnail}`, alt=`${product.title}` width="300px" height="auto")
+        if(product.description)
+          div Description: 
+          div #{product.description}
+

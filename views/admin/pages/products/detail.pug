@@ -1,0 +1,32 @@
+extends ../../layouts/default.pug
+block main 
+  h1(class="mb-4") #{product.title}
+
+  if(product.price)
+    div(class="mb-4") Price: #{product.price} $
+  
+  if(product.discountPercentage)
+    div(class="mb-4") Discount Percentage: #{product.discountPercentage} %
+
+  if(product.stock)
+    div(class="mb-4") Stock: #{product.stock}
+  
+  if(product.thumbnail)
+    img(src=`${product.thumbnail}` image-preview-detail)
+  
+  if(product.position)
+    div(class="mb-4") Position: #{product.position}
+
+  if(product.status)
+    div(class="mb-4") Status:
+      if(product.status == "active")
+        span(class=`badge badge-success`) Active 
+      else 
+        span(class="badge badge-danger") Inactive
+  
+  if(product.description)
+    div Description: 
+    div(class="mb-4") #{product.description}
+  
+  a(href=`${PATH_ADMIN}/products/edit/${product.id}` class="btn btn-warning") EDIT
+  script(src="/admin/JS/products.js") 
