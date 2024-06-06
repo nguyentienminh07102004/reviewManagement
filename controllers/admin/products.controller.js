@@ -145,10 +145,6 @@ const createProduct = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position);
   }
-  if(req.file){
-    console.log(req.file);
-    req.body.thumbnail = `/admin/uploads/${req.file.filename}`;
-  }
   const product = new Products(req.body);
   await product.save();
 

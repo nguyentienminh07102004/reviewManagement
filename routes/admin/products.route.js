@@ -2,8 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const storage = require('../../helpers/storage.js');
 const validate = require("../../validates/admin/products.validate.js");
+const Upload = require("../../middlewares/admin/cloudinary.middleware.js");
 
-const upload = multer({ storage: storage });
+const upload = multer();
 
 const controller = require('../../controllers/admin/products.controller.js');
 
@@ -26,15 +27,13 @@ route.patch('/garbage/:type/:id', controller.restoreProducts);
 
 // Tạo mới sản phẩm
 route.get('/create', controller.createPage);
-route.post('/create', upload.single('thumbnail'), validate.productValidate, controller.createProduct);
+route.post('/create', upload.single('thumbnail'), Upload.upload, validate.productValidate, controller.createProduct);
 
 // Tạo trang edit 1 sản phẩm
 route.get("/edit/:id", controller.edit);
-route.patch("/edit/:id", upload.single("thumbnail"), validate.productValidate, controller.editProduct);
+route.patch("/edit/:id", upload.single("thumbnail"), Upload.upload, validate.productValidate, controller.editProduct);
 
 // Tạo trang chi tiết sản phẩm
 route.get("/detail/:id", controller.detail);
-
-
 
 module.exports = route;
