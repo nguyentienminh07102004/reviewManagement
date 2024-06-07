@@ -1,4 +1,3 @@
-
 const buttonChangeStatus = document.querySelectorAll('[button-change-status]');
 if (buttonChangeStatus) {
   buttonChangeStatus.forEach(button => {

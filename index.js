@@ -7,6 +7,7 @@ const bodyParse = require('body-parser');
 const flash = require('express-flash');
 const session = require('express-session');
 const cookie = require('cookie-parser');
+const path = require("path");
 
 const route = require("./routes/client/index.route.js");
 const routeAdmin = require("./routes/admin/index.route.js");
@@ -28,6 +29,9 @@ const port = process.env.PORT;
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
+
+// tinyMCE
+app.use("/tinymce", express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 database.connect();
 

@@ -26,7 +26,7 @@ block main
   
   if(product.description)
     div Description: 
-    div(class="mb-4") #{product.description}
+    div(class="mb-4") !{product.description}
   
   a(href=`${PATH_ADMIN}/products/edit/${product.id}` class="btn btn-warning") EDIT
   script(src="/admin/JS/products.js") 

@@ -27,12 +27,23 @@ const index = async (req, res) => {
     currentPage: 1,
     limitItem: 3
   }
+
+  // sort
+  let sort = {};
+  if(req.query.sortKey){
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "asc";
+  }
+  // Mặc định có id giảm dần
+  sort._id = "desc";
+  // end sort
   
   const countProducts = await Products.countDocuments(find);
   pagination(page, req.query, countProducts);
 
   // find Products
-  let products = await Products.find(find).sort( { position: "desc", _id: "desc" } ).limit(page.limitItem).skip(page.skip);
+  let products = await Products.find(find).sort( sort ).limit(page.limitItem).skip(page.skip);
 
   res.render("admin/pages/products/index.pug", {
     title: "Products",
@@ -196,4 +207,5 @@ const detail = async (req, res) => {
   })
 }
 
-module.exports = { index, changeStatus, changeMultiStatus, deleteProduct, garbageProducts, restoreProducts, createPage, createProduct, edit, editProduct, detail };
+module.exports = { index, changeStatus, changeMultiStatus, deleteProduct, garbageProducts, 
+                    restoreProducts, createPage, createProduct, edit, editProduct, detail };

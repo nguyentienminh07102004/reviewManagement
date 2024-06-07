@@ -18,6 +18,6 @@ const ProductsSchema = mongoose.Schema({
 }, 
 { timestamps: true });
 
-const Products = mongoose.model("Product", ProductsSchema, "review"); // tham số đầu tiên là tên model
+const Products = mongoose.model("Product", ProductsSchema, "products"); // tham số đầu tiên là tên model
 
 module.exports = Products;

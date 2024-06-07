@@ -1,0 +1,10 @@
+extends ../../layouts/default.pug
+block main 
+  h1 Products Category List 
+  div(class="card mb-3")
+    div(class="card-header") Products Category List
+    div(class="card-body")
+      div(class="row")
+        div(class='col-8')
+        div(class='col-4')
+          a(href=`${PATH_ADMIN}/products-category/create` class='btn btn-outline-success') + Add Product

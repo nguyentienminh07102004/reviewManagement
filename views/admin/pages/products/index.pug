@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/changeMultiStatus.pug
 include ../../mixins/alert.pug
+include ../../mixins/sortByCre.pug
 
 block main 
   h1 Products List
@@ -23,6 +24,8 @@ block main
           +filterStatus(buttons)
         div(class="col-6")
           +search(keyword)
+  
+  +sortByCre()
 
   div(class="card mb-3")
     div(class="card-header") Products

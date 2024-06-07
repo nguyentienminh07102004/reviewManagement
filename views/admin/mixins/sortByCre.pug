@@ -1,0 +1,15 @@
+mixin sortByCre()
+  div(class='card mb-3')
+    div(class='card-header') Sort By 
+    div(class='card-body')
+      div(class='row')
+        div(class='col-4')
+          div(sort) 
+            select(class='form-control' name='sort' sort-select)
+              option(value="position-desc") Descending position 
+              option(value='position-asc') Ascending position
+              option(value="price-desc") Descending price 
+              option(value="price-asc") Ascending price 
+              option(value="title-desc") Descending title 
+              option(value="title-asc") Ascending title
+            button(class='btn btn-danger mt-2 mb-4' sort-clear) Clear

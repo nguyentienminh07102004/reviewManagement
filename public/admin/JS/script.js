@@ -126,3 +126,28 @@ if(imageInputGroup){
     buttonClear.classList.add("button-clear-none");
   });
 }
+
+// Sắp xếp theo tiêu chí
+const sortByCriteria = document.querySelector("[sort]");
+if(sortByCriteria){
+  const sortSelect = sortByCriteria.querySelector("[sort-select]");
+  if(sortSelect){
+    sortSelect.addEventListener("change", (e) => {
+      const [sortKey, sortValue] = e.target.value.split("-");
+      url.searchParams.set("sortKey", sortKey);
+      url.searchParams.set("sortValue", sortValue);
+      window.location.href = url;
+    });
+  }
+  const buttonClear = sortByCriteria.querySelector("[sort-clear]");
+  buttonClear.addEventListener("click", () => {
+    url.searchParams.delete("sortKey");
+    url.searchParams.delete("sortValue");
+    window.location.href = url;
+  });
+
+  const sortKey = url.searchParams.get("sortKey");
+  if(sortKey){
+    sortSelect.querySelector(`option[value='${sortKey}-${url.searchParams.get("sortValue")}']`).selected = true;
+  }
+}
